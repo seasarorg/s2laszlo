@@ -1,0 +1,54 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.seasar.laszlo.examples</groupId>
+  <artifactId>s2-laszlo-examples</artifactId>
+  <packaging>war</packaging>
+  <version>0.1.0</version>
+  <name>S2Laszlo Project Examples</name>
+  <url>http://s2laszlo.seasar.org/</url>
+  <build>
+    <finalName>s2-laszlo-examples</finalName>
+    <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
+    <testSourceDirectory>${basedir}/src/test/java</testSourceDirectory>
+    
+      <plugins>
+        <plugin>
+          <artifactId>maven-antrun-plugin</artifactId>
+          <executions>
+            <execution>
+              <id>s2laszlo-setup</id>
+              <phase>generate-sources</phase>
+              <configuration>
+                <tasks>
+              	  <ant antfile="../build-s2laszlo.xml" target="setup">
+              	  	<property name="openlaszlo.dir" value="../openlaszlo" />
+                    <property name="openlaszlo.war" value="openlaszlo-3.1.1-servlet.war" />
+                    <property name="openlaszlo.work.dir" value="../openlaszlo/work" />
+                    <property name="webapp.dir" value="../s2-laszlo-examples/src/main/webapp" />
+              	  </ant>
+                </tasks>
+              </configuration>
+              <goals>
+                <goal>run</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+      </plugins>
+  </build>
+
+  <parent>
+    <groupId>org.seasar.laszlo</groupId>
+    <artifactId>s2laszlo</artifactId>
+    <version>0.1.0</version>
+  </parent>
+  <dependencies>
+  	<dependency>
+  	<groupId>org.seasar.laszlo</groupId>
+  	<artifactId>s2-laszlo</artifactId>
+  	<version>0.1.0</version>
+  	<type>jar</type>
+  	</dependency>
+  </dependencies>
+</project>

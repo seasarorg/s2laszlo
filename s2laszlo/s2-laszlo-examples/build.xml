@@ -1,0 +1,183 @@
+<?xml version="1.0"?>
+
+<project name="S2Laszlo Examples Project" default="all">
+
+	<property file="build.properties" />
+	
+	<property name="app.name" value="s2-laszlo-examples" />
+	<property name="app.ver" value="0.0.0" />
+	
+	<property name="war.file" value="${app.name}.war"/>
+	<property name="s2laszlo.dir" value="../s2-laszlo/dist"/>
+	<property name="s2laszlo.jar" value="s2-laszlo*.jar"/>
+	<property name="src.dir" value="src/main/java" />
+	<property name="resources.dir" value="src/main/resources"/>
+	<property name="webapp.dir" value="src/main/webapp"/>
+	<property name="conf.dir" value="conf"/>
+	<property name="build.dir" value="build"/>
+	<property name="dist.dir" value="dist" />
+	<property name="lib.dir" value="../lib" />
+	<property name="openlaszlo.work.dir" value="../openlaszlo/work"/>
+	
+	<property name="compile.optimize" value="false" />
+	<property name="compile.debug" value="true" />
+	<property name="compile.source" value="1.4" />
+	<property name="compile.verbose" value="false" />
+	<property name="compile.fork" value="true" />
+	<property name="compile.memorymaximumsize" value="64m" />
+
+	<path id="libs">
+		<fileset dir="${lib.dir}">
+			<include name="*.jar" />
+			<include name="*.zip" />
+		</fileset>
+	</path>
+	
+	<target name="all" depends="clean,init,compile,war">
+	</target>
+
+	<target name="clean">
+		<delete dir="${build.dir}"/>
+		<delete dir="${build-test.dir}"/>
+		<delete dir="${dist.dir}"/>
+		<mkdir dir="${webapp.dir}/WEB-INF/lib"/>
+		<delete>
+			<fileset dir="${webapp.dir}/WEB-INF/lib">
+				<include name="activation.jar" />
+				<include name="axis.jar" />
+				<include name="batik-svggen.jar" />
+				<include name="commons-beanutils.jar" />
+				<include name="commons-collections.jar" />
+				<include name="commons-discovery.jar" />
+				<include name="commons-httpclient*.jar" />
+				<include name="commons-jexl*.jar" />
+				<!-- include name="commons-logging.jar" /-->
+				<include name="ftp.jar" />
+				<include name="iso-relax.jar" />
+				<include name="jakarta-regexp*.jar" />
+				<include name="jaxrpc.jar" />
+				<include name="jdom.jar" />
+				<include name="jing.jar" />
+				<include name="jython.jar" />
+				<!-- include name="log4j*.jar" /-->
+				<include name="lps*.jar" />
+				<include name="saaj.jar" />
+				<include name="saxon*.jar" />
+				<include name="swflib.jar" />
+				<include name="wsdl4j.jar" />
+				<include name="xmlrpc*.jar" />
+				<include name="xpp3*.jar" />
+				<include name="s2*.jar" />
+				<include name="aop*.jar" />
+				<include name="ognl*.jar" />
+				<include name="javassist*.jar" />
+				<include name="commons-logging*.jar" />
+				<include name="log4j*.jar" />
+				<include name="${s2laszlo.jar}" />
+			</fileset>
+		</delete>
+		<delete dir="${webapp.dir}/WEB-INF/lps/work"/>
+	</target>
+	
+	<target name="init">
+		<mkdir dir="${webapp.dir}/WEB-INF/lib"/>
+		<copy todir="${webapp.dir}/WEB-INF/lib">
+			<fileset dir="${s2laszlo.dir}">
+				<include name="${s2laszlo.jar}" />
+			</fileset>
+		</copy>
+		<copy todir="${webapp.dir}/WEB-INF/lib">
+			<fileset dir="${openlaszlo.work.dir}/WEB-INF/lib">
+				<include name="activation.jar" />
+				<include name="axis.jar" />
+				<include name="batik-svggen.jar" />
+				<include name="commons-beanutils.jar" />
+				<include name="commons-collections.jar" />
+				<include name="commons-discovery.jar" />
+				<include name="commons-httpclient*.jar" />
+				<include name="commons-jexl*.jar" />
+				<!-- include name="commons-logging.jar" /-->
+				<include name="ftp.jar" />
+				<include name="iso-relax.jar" />
+				<include name="jakarta-regexp*.jar" />
+				<include name="jaxrpc.jar" />
+				<include name="jdom.jar" />
+				<include name="jing.jar" />
+				<include name="jython.jar" />
+				<!-- include name="log4j*.jar" /-->
+				<include name="lps*.jar" />
+				<include name="saaj.jar" />
+				<include name="saxon*.jar" />
+				<include name="swflib.jar" />
+				<include name="wsdl4j.jar" />
+				<include name="xmlrpc*.jar" />
+				<include name="xpp3*.jar" />
+			</fileset>
+		</copy>
+		<copy todir="${webapp.dir}/WEB-INF/lib">
+			<fileset dir="${lib.dir}">
+				<include name="s2*.jar" />
+				<include name="aop*.jar" />
+				<include name="ognl*.jar" />
+				<include name="javassist*.jar" />
+				<include name="commons-logging*.jar" />
+				<include name="log4j*.jar" />
+			</fileset>
+		</copy>
+		<mkdir dir="${webapp.dir}/lps"/>
+		<copy todir="${webapp.dir}/lps">
+			<fileset dir="${openlaszlo.work.dir}/lps">
+				<include name="**/*" />
+			</fileset>
+		</copy>
+		<mkdir dir="${webapp.dir}/WEB-INF/lps"/>
+		<copy todir="${webapp.dir}/WEB-INF/lps">
+			<fileset dir="${openlaszlo.work.dir}/WEB-INF/lps">
+				<include name="**/*" />
+			</fileset>
+		</copy>
+	</target>
+	
+	<target name="compile">
+		<mkdir dir="${build.dir}"/>
+		<javac srcdir="${src.dir}"
+			destdir="${build.dir}"
+			optimize="${compile.optimize}"
+			debug="${compile.debug}"
+			source="${compile.source}"
+			verbose="${compile.verbose}"
+			fork="${compile.fork}"
+			memorymaximumsize="${compile.memorymaximumsize}">
+			<classpath refid="libs" />
+		</javac>
+	</target>
+	
+	<target name="war">
+		<mkdir dir="${dist.dir}"/>
+		<war destfile="${dist.dir}/${war.file}"
+			webxml="${webapp.dir}/WEB-INF/web.xml"
+			compress="true">
+			
+			<fileset dir="${webapp.dir}" >
+				<exclude name="**/web.xml"/>
+				<exclude name="WEB-INF/classes/**/*"/>
+			</fileset>
+			
+			<classes dir="${build.dir}" />
+			<classes dir="${resources.dir}"/>
+			<manifest>
+				<section name="common">
+					<attribute name="Built-By" value="${user.name}"/>
+					<attribute name="Extension-Name" value="${app.name}"/>
+					<attribute name="Specification-Title" value="DI Container with AOP"/>
+					<attribute name="Specification-Vendor" value="The Seasar Foundation"/>
+					<attribute name="Implementation-Vendor" value="The Seasar Foundation"/>
+					<attribute name="Implementation-Title" value="${app.name}"/>
+					<attribute name="Implementation-Version" value="${app.ver}"/>
+					</section>
+			</manifest>
+		</war>
+	</target>
+	
+</project>
+
