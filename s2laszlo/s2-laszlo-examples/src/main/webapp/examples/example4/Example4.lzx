@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<canvas debug="true">
+    <include href="Example4Delegate.lzx"/>
+	<view>
+		<tabs>
+			<tabpane text="キャンセル処理">
+				<simplelayout axis="y" />
+				
+				<attribute name="sending" value="false" type="boolean"/>
+				
+				<text>S2Laszlo組み込みのキャンセル処理</text>
+				<view name="sleepTimeView">
+					<simplelayout axis="x"/>
+					<text>サーバ待機秒数：</text>
+					<edittext name="sleepTimeET"/>
+				</view>
+				<view name="sendMesgView">
+					<simplelayout axis="x"/>
+					<text>送信文字列：</text>
+					<edittext name="sendMesgET"/>
+				</view>
+				<view>
+					<simplelayout axis="x"/>
+					<button onclick="parent.parent.send()">送信</button>
+					<button onclick="parent.parent.cancel()">キャンセル</button>
+				</view>
+				<view name="receiveMesgView">
+					<simplelayout axis="x"/>
+					<text>受信文字列：</text>
+					<edittext name="receiveMesgET"/>
+				</view>
+				
+				<method name="send">
+					if( this.sending ) {
+						Debug.write("送信中です。");
+						return;
+					}
+					Debug.write("送信");
+					this.setAttribute("sending", true);
+					var r = {ref: this.receiveMesgView.receiveMesgET, attribute: 'text'
+								, invokeObject:this, invokeMethod:'received' };
+					var c = {eventHolder: this, eventName: 'onsending' };
+					var d = new Example4Delegate(r, c);
+					d.sleepAndEcho( this.sleepTimeView.sleepTimeET.text,
+						this.sendMesgView.sendMesgET.text );
+				</method>
+				
+				<method name="cancel">
+					Debug.write("キャンセル");
+					this.setAttribute("sending", false);
+				</method>
+				
+				<method name="received" args="data">
+					Debug.write("受信:" + data);
+					this.setAttribute("sending", false);
+				</method>
+			</tabpane>
+		</tabs>
+	</view>
+</canvas>

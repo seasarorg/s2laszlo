@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<canvas debug="true">
+    <include href="../../s2laszlo/library.lzx"/>
+    <view>
+        <simplelayout axis="y" />
+        <text><b>初めてのS2Laszloによる通信</b></text>
+        <view name="myFirstLaszlo">
+            <simplelayout axis="x" />
+            <text width="200">ボタンを押してみましょう</text>
+            <button>実行
+                <method event="onclick">
+                    Debug.write("ボタンが押されました");
+                    var t = { component: 'org.seasar.laszlo.examples.example1.Example1', method: 'hello' }
+                    var r = { ref: parent.parent.result, attribute:'text', invokeObject:this, invokeMethod:'success' };
+                    var e = {invokeObject:this, invokeMethod:'error'};
+                    var s2l = new S2Laszlo( t, r, e );
+                    s2l.invoke();
+                </method>
+                <method name="success" args="str">
+                    Debug.write('取得した文字列は"' + str + '"です。');
+                </method>
+                <method name="error" args="errorObject">
+                    Debug.write('エラーが発生しました。');
+                    Debug.write('Exceptionクラス:' + errorObject['exception'] );
+                    Debug.write('Exceptionメッセージ:' + errorObject['exceptionMessage']);
+                </method>
+            </button>
+        </view>
+        <text name="result" width="100"/>
+    </view>
+</canvas>

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<canvas debug="true">
+    <include href="Example5Delegate.lzx"/>
+    
+    <tabs>
+		<tabpane text="HttpServletRequest" width="450">
+			<view name="req">
+				<simplelayout spacing="10"/>
+				<view name="header">
+					<text name="headerInfoText"><b>ヘッダー情報</b></text>
+					<button name="headerBtn"
+						x="${parent.headerInfoText.x + parent.headerInfoText.width + 10}"
+						y="${parent.headerInfoText.y}">取得
+						<method event="onclick">
+							var r = {invokeObject:parent.headerList, invokeMethod:"refresh"};
+							var d = new Example5Delegate(r);
+							d.getHeaderList();
+						</method>
+					</button>
+					<text name="headerText" y="${parent.headerBtn.y + parent.headerBtn.height + 5}">
+						サーバで受け取ったリクエストのヘッダー情報を表示します。
+					</text>
+					<grid name="headerList" width="400" height="150"
+						y="${parent.headerText.y + parent.headerText.height + 5}">
+						<attribute name="list" value="$once{new LzDataset(this, {name:'head'})}"/>
+						<gridcolumn width="150">キー<text datapath="headerName/text()"/></gridcolumn>
+						<gridcolumn width="${parent.width - 150}">値<text datapath="headerValue/text()"/></gridcolumn>
+						
+						<method name="init">
+							var e = LzDataElement.valueToElement(new Array());
+							this.list.appendChild(e);
+							this.setDatapath("local:head:/element");
+							super.init();
+						</method>
+						
+						<method name="refresh" args="list">
+							Debug.inspect(list);
+							var e = LzDataElement.valueToElement(list);
+							var replaceData = this.list.getFirstChild();
+							this.list.replaceChild(e, replaceData);
+						</method>
+					</grid>
+				</view>
+				
+				<view name="cookie">
+					<text name="cookieInfoText"><b>クッキー情報</b></text>
+					<button name="cookieBtn"
+						x="${parent.cookieInfoText.x + parent.cookieInfoText.width + 10}"
+						y="${parent.cookieInfoText.y}">取得
+						<method event="onclick">
+							var r = {invokeObject:parent.cookieList, invokeMethod:"refresh"};
+							var d = new Example5Delegate(r);
+							d.getCookies();
+						</method>
+					</button>
+					<button name="createCookieBtn"
+						x="${parent.cookieBtn.x + parent.cookieBtn.width + 10}"
+						y="${parent.cookieBtn.y}">セッション作成(JSESSIONIDクッキー)
+						<method event="onclick">
+							var r = { };
+							var d = new Example5Delegate(r);
+							d.createSessionCookie();
+						</method>
+					</button>
+					<text name="cookieText" y="${parent.cookieBtn.y + parent.cookieBtn.height + 5}">
+						サーバで受け取ったクッキーを表示します。
+					</text>
+					<grid name="cookieList" width="400" height="150"
+						y="${parent.cookieText.y + parent.cookieText.height + 5}">
+						<attribute name="list" value="$once{new LzDataset(this, {name:'cookie'})}"/>
+						<gridcolumn width="150">クッキー名<text datapath="name/text()"/></gridcolumn>
+						<gridcolumn width="150">値<text datapath="value/text()"/></gridcolumn>
+						<gridcolumn width="${parent.width - 300}">maxAge<text datapath="maxAge/text()"/></gridcolumn>
+						<method name="init">
+							var e = LzDataElement.valueToElement(new Array());
+							this.list.appendChild(e);
+							this.setDatapath("local:head:/element");
+							super.init();
+						</method>
+						<method name="refresh" args="list">
+							Debug.inspect(list);
+							var e = LzDataElement.valueToElement(list);
+							var replaceData = this.list.getFirstChild();
+							this.list.replaceChild(e, replaceData);
+						</method>
+					</grid>
+				</view>
+			</view>
+		</tabpane>
+		
+		<tabpane text="HttpSessionRequest" width="450">
+				<view name="session">
+					<text name="sessionText"><b>セッション情報</b></text>
+					<button name="getSessionBtn"
+						x="${parent.sessionText.x + parent.sessionText.width + 10}"
+						y="${parent.sessionText.y}">取得
+						<method event="onclick">
+							var r = {invokeObject:parent.sessionList, invokeMethod:"refresh"};
+							var d = new Example5Delegate(r);
+							d.getSessionAttributes();
+						</method>
+					</button>
+					<button name="createCookieBtn"
+						x="${parent.cookieBtn.x + parent.cookieBtn.width + 10}"
+						y="${parent.cookieBtn.y}">セッション作成(JSESSIONIDクッキー)
+						<method event="onclick">
+							var r = { };
+							var d = new Example5Delegate(r);
+							d.createSessionCookie();
+						</method>
+					</button>
+					<text name="sessionInofText" y="${parent.cookieBtn.y + parent.cookieBtn.height + 5}">
+						HttpSessionで保持されている情報を表示します。。
+					</text>
+					<grid name="sessionList" width="400" height="150"
+						y="${parent.sessionInofText.y + parent.sessionInofText.height + 5}">
+						<attribute name="list" value="$once{new LzDataset(this, {name:'cookie'})}"/>
+						<gridcolumn width="150">キー<text datapath="name/text()"/></gridcolumn>
+						<gridcolumn width="150">値<text datapath="value/text()"/></gridcolumn>
+						<gridcolumn width="${parent.width - 300}">maxAge<text datapath="maxAge/text()"/></gridcolumn>
+						<method name="init">
+							var e = LzDataElement.valueToElement(new Array());
+							this.list.appendChild(e);
+							this.setDatapath("local:head:/element");
+							super.init();
+						</method>
+						<method name="refresh" args="list">
+							Debug.inspect(list);
+							var e = LzDataElement.valueToElement(list);
+							var replaceData = this.list.getFirstChild();
+							this.list.replaceChild(e, replaceData);
+						</method>
+					</grid>
+				</view>
+			</view>
+		</tabpane>
+	</tabs>    
+</canvas>

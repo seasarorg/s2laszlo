@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+	<include href="../../s2laszlo/library.lzx"/>
+    <script>
+        function Example3Delegate( result ) {
+        	this._s2l = null;
+            this._component = "org.seasar.laszlo.examples.example3.Example3";
+            this._result = result
+            this._error = {invokeObject:this, invokeMethod:'_errorMethod'};
+        }
+        
+        Example3Delegate.prototype._errorMethod = function( errMesg ) {
+        	Debug.write("Example3Delegate error:" + errMesg );
+        }
+        
+        Example3Delegate.prototype.sleep = function(a) {
+            var target = { component: this._component, method: 'sleep' };
+            this._s2l = new S2Laszlo( target, this._result, this._error );
+            this._s2l.invoke(a);
+        }
+        
+        Example3Delegate.prototype.throwRuntimeException = function(a) {
+            var target = { component: this._component, method: 'throwRuntimeException' };
+            this._s2l = new S2Laszlo( target, this._result, this._error );
+            this._s2l.invoke(a);
+        }
+        
+    </script>
+</library>

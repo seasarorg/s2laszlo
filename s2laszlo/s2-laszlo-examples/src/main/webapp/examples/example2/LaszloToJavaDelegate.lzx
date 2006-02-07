@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+	<include href="../../s2laszlo/library.lzx"/>
+    <script>
+        function LaszloToJavaDelegate( result ) {
+            this._component = "org.seasar.laszlo.examples.example2.LaszloToJava";
+            this._result = result
+            this._error = {invokeObject:this, invokeMethod:'_errorMethod'};
+        }
+        
+        LaszloToJavaDelegate.prototype._errorMethod = function( errMesg ) {
+        	Debug.write("LaszloToJavaDelegate error:" + errMesg );
+        }
+        
+        LaszloToJavaDelegate.prototype.receiveBooleanP = function( a ) {
+            var target = { component: this._component, method: 'receiveBooleanP' };
+            var s2l = new S2Laszlo( target, this._result, this._error );
+            s2l.invoke( a );
+        }
+        
+        LaszloToJavaDelegate.prototype.receiveIntP = function( a ) {
+            var target = { component: this._component, method: 'receiveIntP' };
+            var s2l = new S2Laszlo( target, this._result, this._error );
+            s2l.invoke( a );
+        }
+        
+        LaszloToJavaDelegate.prototype.receiveLongP = function( a ) {
+            var target = { component: this._component, method: 'receiveLongP' };
+            var s2l = new S2Laszlo( target, this._result, this._error );
+            s2l.invoke( a );
+        }
+        
+        LaszloToJavaDelegate.prototype.receiveFloatP = function( a ) {
+            var target = { component: this._component, method: 'receiveFloatP' };
+            var s2l = new S2Laszlo( target, this._result, this._error );
+            s2l.invoke( a );
+        }
+        
+        LaszloToJavaDelegate.prototype.receiveDoubleP = function( a ) {
+            var target = { component: this._component, method: 'receiveDoubleP' };
+            var s2l = new S2Laszlo( target, this._result, this._error );
+            s2l.invoke( a );
+        }
+        
+        LaszloToJavaDelegate.prototype.receiveBoolean = function( a ) {
+            var target = { component: this._component, method: 'receiveBoolean' };
+            var s2l = new S2Laszlo( target, this._result, this._error );
+            s2l.invoke( a );
+        }
+        
+        LaszloToJavaDelegate.prototype.receiveInteger = function( a ) {
+            var target = { component: this._component, method: 'receiveInteger' };
+            var s2l = new S2Laszlo( target, this._result, this._error );
+            s2l.invoke( a );
+        }
+        
+        LaszloToJavaDelegate.prototype.receiveLong = function( a ) {
+            var target = { component: this._component, method: 'receiveLong' };
+            var s2l = new S2Laszlo( target, this._result, this._error );
+            s2l.invoke( a );
+        }
+        
+        LaszloToJavaDelegate.prototype.receiveFloat = function( a ) {
+            var target = { component: this._component, method: 'receiveFloat' };
+            var s2l = new S2Laszlo( target, this._result, this._error );
+            s2l.invoke( a );
+        }
+        
+        LaszloToJavaDelegate.prototype.receiveDouble = function( a ) {
+            var target = { component: this._component, method: 'receiveDouble' };
+            var s2l = new S2Laszlo( target, this._result, this._error );
+            s2l.invoke( a );
+        }
+        
+        LaszloToJavaDelegate.prototype.receiveString = function( a ) {
+            var target = { component: this._component, method: 'receiveString' };
+            var s2l = new S2Laszlo( target, this._result, this._error );
+            s2l.invoke( a );
+        }
+        
+        LaszloToJavaDelegate.prototype.receiveList = function( a ) {
+            var target = { component: this._component, method: 'receiveList' };
+            var s2l = new S2Laszlo( target, this._result, this._error );
+            s2l.invoke( a );
+        }
+        
+        LaszloToJavaDelegate.prototype.receiveMap = function( a ) {
+            var target = { component: this._component, method: 'receiveMap' };
+            var s2l = new S2Laszlo( target, this._result, this._error );
+            s2l.invoke( a );
+        }
+    </script>
+</library>
