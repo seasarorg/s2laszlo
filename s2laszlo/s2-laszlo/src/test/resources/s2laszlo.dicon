@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.3//EN"
+	"http://www.seasar.org/dtd/components23.dtd">
+<components>
+	<component name="s2laszloInvoker"
+		class="org.seasar.laszlo.impl.S2LaszloInvokerImpl">
+	</component>
+	<component name="s2LaszloInvokerLogFormatter"
+		class="org.seasar.laszlo.impl.S2LaszloInvokerLogFormatterDefaultImpl">
+	</component>
+	<component name="s2LaszloExceptionHandler"
+		class="org.seasar.laszlo.impl.S2LaszloExceptionHandlerImpl">
+	</component>
+</components>

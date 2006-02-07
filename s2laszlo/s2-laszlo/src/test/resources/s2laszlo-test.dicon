@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.3//EN"
+	"http://www.seasar.org/dtd/components23.dtd">
+<components>
+	<include path="s2laszlo.dicon"/>
+	
+	<component name="org.seasar.laszlo.Hoge1"
+		class="org.seasar.laszlo.HogeImpl">
+		<meta name="s2laszlo"/>
+	</component>
+	
+	<component name="org.seasar.laszlo.Hoge2"
+		class="org.seasar.laszlo.HogeImpl">
+	</component>
+	
+</components>
