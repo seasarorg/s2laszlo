@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.3//EN"
+	"http://www.seasar.org/dtd/components23.dtd">
+<components>
+	<component name="org.seasar.laszlo.examples.example5.Example5"
+		class="org.seasar.laszlo.examples.example5.Example5Impl">
+		<meta name="s2laszlo"/>
+	</component>
+</components>
