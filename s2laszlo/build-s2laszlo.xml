@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<project name="S2Laszlo Project setup" default="setup">
+
+	<property file="build.properties"/>
+	
+	<property name="webapp.dir" value="${s2-laszlo-examples.dir}/src/main/webapp" />
+
+	<target name="setup">
+		<available file="${openlaszlo.dir}/${openlaszlo.work.dir}" property="need.unzip"/>
+		<antcall target="_unzip"></antcall>
+		<antcall target="copy"></antcall>
+	</target>
+
+	<target name="_unzip" unless="need.unzip">
+		<unzip src="${openlaszlo.dir}/${openlaszlo.war}" dest="${openlaszlo.dir}/${openlaszlo.work.dir}"/>
+	</target>
+	
+	<target name="unzip">
+		<available file="${openlaszlo.dir}/${openlaszlo.work.dir}" property="need.unzip"/>
+		<antcall target="_unzip"/>
+	</target>
+
+	<target name="copy" unless="need.unzip">
+
+		<copy todir="${webapp.dir}/lps">
+			<fileset dir="${openlaszlo.dir}/${openlaszlo.work.dir}/lps">
+				<include name="**" />
+			</fileset>
+		</copy>
+
+		<copy todir="${webapp.dir}/WEB-INF/lps">
+			<fileset dir="${openlaszlo.dir}/${openlaszlo.work.dir}/WEB-INF/lps">
+				<include name="**" />
+			</fileset>
+		</copy>
+
+		<copy todir="${webapp.dir}/WEB-INF/lib">
+			<fileset dir="${openlaszlo.dir}/${openlaszlo.work.dir}/WEB-INF/lib">
+				<include name="activation.jar" />
+				<include name="axis.jar" />
+				<include name="batik-svggen.jar" />
+				<include name="commons-beanutils.jar" />
+				<include name="commons-collections.jar" />
+				<include name="commons-discovery.jar" />
+				<include name="commons-httpclient-2.0-rc1.jar" />
+				<include name="commons-jexl-1.0-dev.jar" />
+				<!-- include name="commons-logging.jar" /-->
+				<include name="ftp.jar" />
+				<include name="iso-relax.jar" />
+				<include name="jakarta-regexp-1.2.jar" />
+				<include name="jaxrpc.jar" />
+				<include name="jdom.jar" />
+				<include name="jing.jar" />
+				<include name="jython.jar" />
+				<!-- include name="log4j-1.2.6.jar" /-->
+				<include name="lps-3.1.1.jar" />
+				<include name="saaj.jar" />
+				<include name="saxon-6.5.3-lz-p1.jar" />
+				<include name="swflib.jar" />
+				<include name="wsdl4j.jar" />
+				<include name="xmlrpc-1.2-b1.jar" />
+				<include name="xpp3-1.1.3.4d_b4.jar" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="remove-work">
+		<delete dir="${openlaszlo.dir}/${openlaszlo.work.dir}" />
+	</target>
+
+	<target name="remove" depends="remove-work">
+
+		<delete dir="${webapp.dir}/lps" />
+		<delete dir="${webapp.dir}/WEB-INF/lps" />
+		<delete>
+			<fileset dir="${webapp.dir}/WEB-INF/lib">
+				<include name="activation.jar" />
+				<include name="axis.jar" />
+				<include name="batik-svggen.jar" />
+				<include name="commons-beanutils.jar" />
+				<include name="commons-collections.jar" />
+				<include name="commons-discovery.jar" />
+				<include name="commons-httpclient-2.0-rc1.jar" />
+				<include name="commons-jexl-1.0-dev.jar" />
+				<!-- include name="commons-logging.jar" /-->
+				<include name="ftp.jar" />
+				<include name="iso-relax.jar" />
+				<include name="jakarta-regexp-1.2.jar" />
+				<include name="jaxrpc.jar" />
+				<include name="jdom.jar" />
+				<include name="jing.jar" />
+				<include name="jython.jar" />
+				<!-- include name="log4j-1.2.6.jar" /-->
+				<include name="lps-3.1.1.jar" />
+				<include name="saaj.jar" />
+				<include name="saxon-6.5.3-lz-p1.jar" />
+				<include name="swflib.jar" />
+				<include name="wsdl4j.jar" />
+				<include name="xmlrpc-1.2-b1.jar" />
+				<include name="xpp3-1.1.3.4d_b4.jar" />
+			</fileset>
+		</delete>
+	</target>
+</project>
+

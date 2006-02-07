@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+<project name="S2Laszlo Project" default="dist">
+
+	<property file="build.properties"/>
+
+	<target name="all" depends="clean" description="all">
+		<antcall target="init-laszlo"/>
+		<antcall target="init-lib"/>
+		<antcall target="s2-laszlo">
+			<param name="s2-laszlo.target" value="all"/>
+		</antcall>
+		<antcall target="s2-laszlo-examples">
+			<param name="s2-laszlo-examples.target" value="all"/>
+		</antcall>
+	</target>
+	
+	<target name="clean" description="clean">
+		<antcall target="s2-laszlo">
+			<param name="s2-laszlo.target" value="clean"/>
+		</antcall>
+		<antcall target="s2-laszlo-examples">
+			<param name="s2-laszlo-examples.target" value="clean"/>
+		</antcall>
+		<delete dir="${dist.dir}"/>
+	</target>
+	
+	<target name="dist" depends="all" description="dist">
+		<mkdir dir="${dist.dir}"/>
+		<copy todir="${dist.dir}">
+			<fileset dir="${s2-laszlo.dir}/${dist.dir}">
+				<include name="*"/>
+			</fileset>
+		</copy>
+		<copy todir="${dist.dir}">
+			<fileset dir="${s2-laszlo-examples.dir}/${dist.dir}">
+				<include name="*"/>
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="init-laszlo" description="init-laszlo(build-s2laszlo.xml)">
+		<ant antfile="build-s2laszlo.xml"
+			target="unzip" inheritAll="false"/>
+		<copy todir="${openlaszlo.dir}">
+			<fileset dir="${openlaszlo.dir}/${openlaszlo.work.dir}/WEB-INF/lib">
+				<include name="lps*.jar"/>
+			</fileset>
+		</copy>
+	</target>
+	
+	<target name="init-lib" depends="proxy" description="init-lib(download jar file)">
+		<mkdir dir="${lib.dir}"/>
+		<get src="${repository}/aopalliance/jars/${jar.aopalliance}"
+			verbose="true"
+			dest="${lib.dir}/${jar.aopalliance}"
+			usetimestamp="true"/>
+		
+		<get src="${repository}/commons-logging/jars/${jar.commons-logging}"
+			verbose="true"
+			dest="${lib.dir}/${jar.commons-logging}"
+			usetimestamp="true"/>
+		
+		<get src="${repository}/geronimo-spec/jars/${jar.geronimo-spec-j2ee-1.4}"
+			verbose="true"
+			dest="${lib.dir}/${jar.geronimo-spec-j2ee-1.4}"
+			usetimestamp="true"/>
+		
+		<get src="${repository}/javassist/jars/${jar.javassist}"
+			verbose="true"
+			dest="${lib.dir}/${jar.javassist}"
+			usetimestamp="true"/>
+		
+		<get src="${repository}/junit/jars/${jar.junit}"
+			verbose="true"
+			dest="${lib.dir}/${jar.junit}"
+			usetimestamp="true"/>
+		
+		<get src="${repository}/log4j/jars/${jar.log4j}"
+			verbose="true"
+			dest="${lib.dir}/${jar.log4j}"
+			usetimestamp="true"/>
+		
+		<get src="${repository}/ognl/jars/${jar.ognl}"
+			verbose="true"
+			dest="${lib.dir}/${jar.ognl}"
+			usetimestamp="true"/>
+		
+		<get src="${repository}/poi/jars/${jar.poi}"
+			verbose="true"
+			dest="${lib.dir}/${jar.poi}"
+			usetimestamp="true"/>
+			
+		<get src="${seasar-repository}/${jar.s2-framework.dir}/${jar.s2-framework}"
+			verbose="true"
+			dest="${lib.dir}/${jar.s2-framework}"
+			usetimestamp="true"/>
+		
+		<get src="${seasar-repository}/${jar.s2-extension.dir}/${jar.s2-extension}"
+			verbose="true"
+			dest="${lib.dir}/${jar.s2-extension}"
+			usetimestamp="true"/>
+	</target>
+	
+	<target name="proxy" if="proxy">
+		<setproxy proxyhost="${proxy.host}" proxyport="${proxy.port}"/>
+	</target>
+	
+	<target name="s2-laszlo">
+		<ant antfile="${s2-laszlo.build.xml}"
+			dir="${s2-laszlo.dir}"
+			target="${s2-laszlo.target}" inheritAll="false"/>
+	</target>
+	
+	<target name="s2-laszlo-examples">
+		<ant antfile="${s2-laszlo-examples.build.xml}"
+			dir="${s2-laszlo-examples.dir}"
+			target="${s2-laszlo-examples.target}" inheritAll="false"/>
+	</target>
+	
+</project>
+
