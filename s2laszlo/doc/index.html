@@ -1,0 +1,289 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- don't edit start -->
+<head>
+<title>Seasar - DI Container with AOP - </title>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="seasar_b.css" type="text/css" rel="stylesheet" media="screen">
+<link href="seasar_p.css" type="text/css" rel="stylesheet" media="print">
+<script src="seasar_b.js" type="text/JavaScript" language="JavaScript"></script>
+</head><body onload="preload('ja')"><table width="100%" border="0" cellspacing="0" cellpadding="0" align="left"><tr>
+<td align="left" valign="top" width="780"><table width="780" border="0" cellspacing="0" cellpadding="0" class="white">
+<tr><td colspan="7"><img height="5" width="780" src="images/top01_b.gif" alt=""></td></tr>
+<tr><td><img height="117" width="235" src="images/top02_b.gif" alt="Seasar"></td>
+<td colspan="3"><img height="117" width="289" src="images/top03.gif" alt="DI Container with AOP"></td>
+<td colspan="3"><img height="117" width="256" src="images/spacer.gif" alt=""></td>
+</tr><tr><td rowspan="2"><img src="images/top04.gif" alt="" height="49" width="235"></td>
+<td><a href="http://www.seasar.org/index.html"><img src="images/menu01_b_ja.gif" height="30" width="78" border="0" alt="" id="menu01" onmouseover="swap(1)" onmouseout="restore(1)"></a></td>
+<td><a href="http://www.seasar.org/projects.html"><img src="images/menu02_b_ja.gif" height="30" width="101" border="0" alt="" id="menu02" onmouseover="swap(2)" onmouseout="restore(2)"></a></td>
+<td><a href="http://www.seasar.org/products.html"><img src="images/menu03_b_ja.gif" height="30" width="110" border="0" alt="" id="menu03" onmouseover="swap(3)" onmouseout="restore(3)"></a></td>
+<td><a href="http://www.seasar.org/resources.html"><img src="images/menu04_b_ja.gif" height="30" width="113" border="0" alt="" id="menu04" onmouseover="swap(4)" onmouseout="restore(4)"></a></td>
+<td><img src="images/menu05_b_ja.gif" height="30" width="109" border="0" alt="" id="menu05" onmouseover="swap(5)" onmouseout="restore(5)"></td>
+<td><img height="30" width="34" src="images/menu06.gif" alt=""></td></tr><tr>
+<td colspan="6"><img height="19" width="545" src="images/spacer.gif" alt=""></td></tr></table>
+<table  width="780" border="0" cellspacing="0" cellpadding="0" class="white">
+<tr align="left" valign="top"><td width="14"><img height="14" width="14" src="images/spacer.gif" alt=""></td><td width="740" class="main">
+<!-- don't edit end -->
+<!-- document start -->
+
+<h2><a name="s2laszlo">S2Laszloとは</a></h2>
+<p>// TODO</p>
+
+<h2><a name="setup">セットアップ</a></h2>
+<h3>準備するもの</h3>
+<p>S2Laszloでは下記のものが必要になります。</p>
+<ul>
+<li>JDK 1.4.x</li>
+<li>Tomcat 5.0.x</li>
+<li>Seasar 2.3.xとその依存モジュール</li>
+<li>OpenLaszlo 3.1.1</li>
+<li>APACHE ANT 1.6.x</li>
+<li>S2Laszlo</li>
+</ul>
+<p>このうち、JDKとTomcat、ANTについてはそれぞれのマニュアルを参照し、インストールしてください。</br>
+OpenLaszloは、<a href="http://www.laszlosystems.com/developers/download/" target="_blank">OpenLaszloのダウンロードサイト</a>
+からServlet Onlyとなっているものをダウンロードしてください。</p>
+
+<h3>コンパイル</h3>
+<p>コンパイルは下記の手順により行われます。</p>
+<table summary="コンパイル手順" border="1">
+	<tr>
+		<td>&nbsp;</td>
+		<td>処理</td>
+		<td>内容</td>
+	</tr>
+	<tr>
+		<td>1</td>
+		<td>S2Laszloの展開</td>
+		<td>S2Laszloを展開します。</td>
+	</tr>
+	<tr>
+		<td>2</td>
+		<td>OpenLaszloを配置</td>
+		<td>展開したS2LaszloのopenlaszloディレクトリにダウンロードしたOpenLaszlo(openlaszlo-3.1.1-servlet.war)を配置します。</td>
+	</tr>
+	<tr>
+		<td>3</td>
+		<td>build.propertiesの設定</td>
+		<td>Proxy等を使っている場合、build.propertiesにProxyに関する情報を記述します。</td>
+	</tr>
+	<tr>
+		<td>4</td>
+		<td>antの実行</td>
+		<td>build.xmlのdistをターゲットとしてantを実行します。</td>
+	</tr>
+</table>
+<p>最後まで終了すると、distディレクトリに下記の3つのファイルが出来上がります。</p>
+<ul>
+	<li>s2-laszlo-x.jar</li>
+	<li>s2-laszlo-lzx-x.zip</li>
+	<li>s2-laszlo-examples.war</li>
+</ul>
+<p><strong>s2-laszlo-x.jar</strong>はS2LaszloのJavaモジュール(WEB-INF/libに配置)、<strong>s2-laszlo-lzx.zip</strong>はS2LaszloのLZXファイル(コンテキストルートに配置)
+<strong>s2-laszlo-exampoles.war</strong>はS2Laszloの使用例（サンプル）となっています。</p>
+
+<h3>配置</h3>
+<p>s2-laszlo-examples.warをTomcatへデプロイすれば、Examplesを動かすことが可能となります。</p>
+
+<h3>Eclipseで使うには</h3>
+<p>
+展開後のS2LaszloはEclipseのプロジェクトとして配置できるように、.project、.classpathを含めてあります。
+また、Tomcatプラグイン等を利用している場合では、s2-laszlo-examples/src/main/webappディレクトリを
+Webアプリケーションのルートとして設定すれば、連携させることも可能です。</p>
+
+<h2><a name="Example1">Example1</a></h2>
+<p>まずは、簡単な例でLaszloとSeasar2に登録されているコンポーネントが通信できること
+を確認してみます。ここでの目標は<strong>S2Laszloに慣れる</strong>です。<br/>
+最初にSeasar2側を見ていきます。ここでは、Javaのインターフェースと
+その実装を下記のように用意します。</p>
+
+<h3>org.seasar.laszlo.examples.example1.Example1.java</h3>
+<pre>
+public interface Example1 {
+    public String hello();
+}
+</pre>
+
+<h3>org.seasar.laszlo.examples.example1.Example1Impl.java</h3>
+<pre>
+public class Example1Impl implements Example1 {
+
+    private String string;
+
+    public void setString(String string) {
+        this.string = string;
+    }
+
+    public String hello() {
+        return string;
+    }
+}
+</pre>
+
+このコンポーネントをdiconファイルに登録します。
+<h3>example1.dicon</h3>
+<pre>
+&lt;components&gt;
+    &lt;component name=&quot;org.seasar.laszlo.examples.example1.Example1&quot;
+        class=&quot;org.seasar.laszlo.examples.example1.Example1Impl&quot;&gt;
+        &lt;meta name=&quot;s2laszlo&quot;/&gt;
+        &lt;property name=&quot;string&quot;&gt;&quot;Hello World!&quot;&lt;/property&gt;
+    &lt;/component&gt;
+&lt;/components&gt;
+</pre>
+
+<p>
+つぎにLaszlo側を見ていきます。
+</p>
+
+<h3>Example1.lzx</h3>
+<pre>
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;canvas debug=&quot;true&quot;&gt;
+    &lt;include href=&quot;../../s2laszlo/library.lzx&quot;/&gt;
+    &lt;view&gt;
+        &lt;simplelayout axis=&quot;y&quot; /&gt;
+        &lt;text&gt;&lt;b&gt;初めてのS2Laszloによる通信&lt;/b&gt;&lt;/text&gt;
+        &lt;view name=&quot;myFirstLaszlo&quot;&gt;
+            &lt;simplelayout axis=&quot;x&quot; /&gt;
+            &lt;text width=&quot;200&quot;&gt;ボタンを押してみましょう&lt;/text&gt;
+            &lt;button&gt;実行
+                &lt;method event=&quot;onclick&quot;&gt;
+                    Debug.write(&quot;ボタンが押されました&quot;);
+                    var t = { component: 'org.seasar.laszlo.examples.example1.Example1', method: 'hello' }
+                    var r = { ref: parent.parent.result, attribute:'text', invokeObject:this, invokeMethod:'success' };
+                    var e = {invokeObject:this, invokeMethod:'error'};
+                    var s2l = new S2Laszlo( t, r, e );
+                    s2l.invoke();
+                &lt;/method&gt;
+                &lt;method name=&quot;success&quot; args=&quot;str&quot;&gt;
+                    Debug.write('取得した文字列は&quot;' + str + '&quot;です。');
+                &lt;/method&gt;
+                &lt;method name=&quot;error&quot; args=&quot;errorObject&quot;&gt;
+                    Debug.write('エラーが発生しました。');
+                    Debug.write('Exceptionクラス:' + errorObject['exception'] );
+                    Debug.write('Exceptionメッセージ:' + errorObject['exceptionMessage']);
+                &lt;/method&gt;
+            &lt;/button&gt;
+        &lt;/view&gt;
+        &lt;text name=&quot;result&quot; width=&quot;100&quot;/&gt;
+    &lt;/view&gt;
+&lt;/canvas&gt;
+</pre>
+
+<p>
+この例では、buttonオブジェクトのイベント:onclick時のメソッドで、S2Laszloクラスを生成し、
+実際の通信を行っています。以下にそのメソッド内で何をしているのかを細かく見ていきます。
+</p>
+<ol>
+<li>接続用のオブジェクトを作成<br/>接続するSeasar2のコンポーネント名、メソッド名を指定します。</li>
+<li>データ取得用のオブジェクトを作成<br/>取得したデータをどこに入れるか、取得時に実行するメソッドを指定します。</li>
+<li>エラー用のオブジェクトを作成<br/>エラー発生時に実行されるメソッドを指定します。</li>
+<li>S2Laszloのインスタンス生成<br/>上記で作成したオブジェクトを引数としてインスタンスを生成します。</li>
+<li>サーバ側へ渡したいパラメータを指定し実行<br/>パラメータはJavaのメソッドの引数の順番と同じものとなります。</li>
+</ol>
+
+<p>
+データ取得用のオブジェクトとサーバ側へ渡したいパラメータについて
+さらに詳しく見ていくことにします。<br/>
+</p>
+
+<p>
+データ取得用オブジェクトには大きく2つの役割があります。
+一つは取得したデータを入れる場所を指定すること、もう一つはデータ取得後に実行するメソッドを指定することです。<br/>
+S2Laszloでは、データを入れる際に参照渡しを利用しているため、実際にデータを入れたいオブジェクトと
+その属性名を指定することになります。この例では、自分自身からみて、親の親のresultというtextオブジェクトのtext
+という属性に値を入れるということになっています。<br/>
+次に、取得後に実行するメソッドの指定でも、どのオブジェクトのどのメソッドを実行したいのかということを
+指定するようになっています。メソッドには取得したデータが引数として渡されます。<br/>
+また、両方を指定した場合は、S2Laszloではデータを格納後にメソッドが実行されます。
+</p>
+
+<p>
+サーバ側へ渡したいパラメータは、invokeメソッドのパラメータとして指定します。
+このinvokeメソッドのパラメータは可変長なので、サーバ側にあるメソッドにあわせて
+パラメータを渡すことが可能です。パラメータの順番も同一になります。
+この例ではパラメータがないため、何も渡していないのですが、
+Java側のメソッドがStringを引数とする場合、下記のように指定することになります。
+</p>
+<pre>
+    s2laszlo.invoke('文字列');
+</pre>
+<p>
+今回の例では、渡す値はないため、invoke()という形で実行しています。
+</p>
+
+<p>
+最後に実際にブラウザからアクセスしてみます。URLは下記のとおりです。<br/>
+http(s)://(サーバ名):(ポート番号)/(コンテキスト名)/examples/example1/Example1.lzx<br/>
+</p>
+
+<p>
+実際に下記のような画面が表示されます。ボタンを押したときに、サーバにアクセスがあったことを示すログ、
+ブラウザに、取得した文字列と、Debugウインドにログが出力されれば成功です。
+</p>
+
+<img src="images/Example1.png" alt="Example1.lzx" border="1"/>
+
+
+<h2><a name="Example2">Example2</a></h2>
+<p><a href="#Example1">Example1</a>でS2Laszloの基本を説明しました。
+この例では、Laszlo側とJava側でデータを送受信した際にどのような型変換が行われるかを確認します。
+ここでの目標は<strong>LaszloとJavaの型の変換になれる</strong>です。
+</p>
+
+<p>
+今回は初めに結果を示しておきます。
+</p>
+
+<h3>LaszloからJavaへのデータ送信時の型変換</h3>
+<table summary="LaszloからJavaへのデータ送信時の型変換">
+<tr><td>NO</td><td>Laszlo</td><td>Java</td></tr>
+</table>
+
+<h3>JavaからLaszloへのデータ受信時の型変換</h3>
+<table summary="JavaからLaszloへのデータ受信時の型変換" border="1">
+<tr><td>&nbsp;</td><td>Java</td><td>Laszlo</td></tr>
+<tr><td>1</td><td>boolean(プリミティブ)</td><td>number</td></tr>
+<tr><td>2</td><td>int(プリミティブ)</td><td>number</td></tr>
+<tr><td>3</td><td>long(プリミティブ)</td><td>number</td></tr>
+<tr><td>4</td><td>float(プリミティブ)</td><td>number</td></tr>
+<tr><td>5</td><td>double(プリミティブ)</td><td>number</td></tr>
+<tr><td>6</td><td>Boolean</td><td>number</td></tr>
+<tr><td>7</td><td>Integer</td><td>number</td></tr>
+<tr><td>8</td><td>Long</td><td>number</td></tr>
+<tr><td>9</td><td>Float</td><td>number</td></tr>
+<tr><td>10</td><td>Double</td><td>number</td></tr>
+<tr><td>11</td><td>String</td><td>string</td></tr>
+<tr><td>12</td><td>List</td><td>array</td></tr>
+<tr><td>13</td><td>Map</td><td>object</td></tr>
+<tr><td>14</td><td>Bean</td><td>object</td></tr>
+</table>
+
+<p>それではSeasar2側を見ていきます。ここでは、Javaのインターフェースと
+その実装を下記のように用意します。</p>
+
+<h3>examples.2.Mapping.java</h3>
+<pre>
+// TODO MappingImpl.java
+</pre>
+
+<h3>examples.2.MappingImpl.java</h3>
+<pre>
+// TODO MappingImpl.java
+</pre>
+
+<h3>examples.2.ExampleBean.java</h3>
+<pre>
+// TODO ExampleBean.java
+</pre>
+
+
+
+
+
+
+
+</body>
+</html>
