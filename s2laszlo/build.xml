@@ -89,7 +89,12 @@
 			verbose="true"
 			dest="${lib.dir}/${jar.poi}"
 			usetimestamp="true"/>
-			
+		
+		<get src="${repository}/ant/jars/${jar.ant-junit}"
+			verbose="true"
+			dest="${lib.dir}/${jar.ant-junit}"
+			usetimestamp="true"/>
+		
 		<get src="${seasar-repository}/${jar.s2-framework.dir}/${jar.s2-framework}"
 			verbose="true"
 			dest="${lib.dir}/${jar.s2-framework}"
@@ -101,7 +106,7 @@
 			usetimestamp="true"/>
 	</target>
 	
-	<target name="proxy" if="proxy">
+	<target name="proxy" if="proxy.host">
 		<setproxy proxyhost="${proxy.host}" proxyport="${proxy.port}"/>
 	</target>
 	
