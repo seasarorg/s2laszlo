@@ -22,39 +22,39 @@ package org.seasar.laszlo;
  */
 public class ReturnObject {
 
-    private boolean success;
+	private boolean success;
 
-    private String exception;
+	private String exception;
 
-    private String exceptionMessage;
+	private String exceptionMessage;
 
-    private Object object;
+	private Object object;
 
-    public ReturnObject(final Object object) {
-        this.object = object;
-        this.success = true;
-    }
+	public ReturnObject(final Object object) {
+		this.object = object;
+		this.success = true;
+	}
 
-    public ReturnObject(final String exception, final String exceptionMessage) {
-        this.exception = exception;
-        this.exceptionMessage = exceptionMessage;
-        this.success = false;
-    }
+	public ReturnObject(final String exception, final String exceptionMessage) {
+		this.exception = exception;
+		this.exceptionMessage = exceptionMessage;
+		this.success = false;
+	}
 
-    public boolean isSuccess() {
-        return success;
-    }
+	public boolean isSuccess() {
+		return success;
+	}
 
-    public Object getObject() {
-        return object;
-    }
+	public Object getObject() {
+		return object;
+	}
 
-    public String getException() {
-        return exception;
-    }
+	public String getException() {
+		return exception;
+	}
 
-    public String getExceptionMessage() {
-        return exceptionMessage;
-    }
+	public String getExceptionMessage() {
+		return exceptionMessage;
+	}
 
 }
