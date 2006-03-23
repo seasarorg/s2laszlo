@@ -23,6 +23,7 @@
 	<property name="compile.source" value="1.4" />
 	<property name="compile.verbose" value="false" />
 	<property name="compile.fork" value="true" />
+	<property name="compile.deprecation" value="true" />
 	<property name="compile.memorymaximumsize" value="64m" />
 
 	<path id="libs">
@@ -32,7 +33,7 @@
 		</fileset>
 	</path>
 	
-	<target name="all" depends="clean,compile,compile-test,test,jar,lzx-zip">
+	<target name="all" depends="clean,compile,jar,lzx-zip">
 	</target>
 
 	<target name="clean">
@@ -50,6 +51,7 @@
 			source="${compile.source}"
 			verbose="${compile.verbose}"
 			fork="${compile.fork}"
+			deprecation="${compile.deprecation}"
 			memorymaximumsize="${compile.memorymaximumsize}">
 			<classpath refid="libs" />
 		</javac>
@@ -80,7 +82,6 @@
 				<path path="${build-test.dir}"/>
 				<path path="${resources-test.dir}"/>
 			</classpath>
-			
 			<batchtest fork="yes">
 				<fileset dir="${build-test.dir}">
 					<include name="**/*Test.class"/>
