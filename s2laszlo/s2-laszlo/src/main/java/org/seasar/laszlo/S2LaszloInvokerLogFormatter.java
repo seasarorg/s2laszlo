@@ -24,11 +24,11 @@ import java.util.List;
  */
 public interface S2LaszloInvokerLogFormatter {
 
-    public void beforeLog(String compname, String methodName, List argList);
+	public void beforeLog(String compname, String methodName, List argList);
 
-    public void afterLog(final String compname, final String methodName,
-            ReturnObject ro);
+	public void afterLog(final String compname, final String methodName,
+			ReturnObject ro);
 
-    public void errorLog(final String compname, final String methodName,
-            ReturnObject ro, Throwable t);
+	public void errorLog(final String compname, final String methodName,
+			ReturnObject ro, Throwable t);
 }

@@ -24,14 +24,14 @@ import java.util.List;
  */
 public interface S2LaszloInvoker {
 
-    public static final String S2LASZLO_META_STRING = "s2laszlo";
+	public static final String S2LASZLO_META_STRING = "s2laszlo";
 
-    public static final String S2LASZLO_META_VALUE_GZIP = "gzip";
-    
-    public void setS2LaszloMetaString(String metaString);
+	public static final String S2LASZLO_META_VALUE_GZIP = "gzip";
 
-    public void setS2LaszloInvokerLogFormatter(
-            S2LaszloInvokerLogFormatter invokerLog);
+	public void setS2LaszloMetaString(String metaString);
 
-    public ReturnObject invoke(String compname, String methodName, List argList);
+	public void setS2LaszloInvokerLogFormatter(
+			S2LaszloInvokerLogFormatter invokerLog);
+
+	public ReturnObject invoke(String compname, String methodName, List argList);
 }
