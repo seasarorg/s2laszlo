@@ -163,6 +163,8 @@
 				<exclude name="WEB-INF/classes/**/*"/>
 			</fileset>
 			
+				
+			
 			<classes dir="${build.dir}" />
 			<classes dir="${resources.dir}"/>
 			<manifest>
