@@ -5,49 +5,16 @@
 
 <web-app>
 
-    <display-name>LPS</display-name>
+    <display-name>S2Laszlo</display-name>
     <description/>
 
-
-<!--    
-	<filter>
-	  <filter-name>LaszloProtocolSniffingFilter</filter-name>
-	  <filter-class>org.seasar.laszlo.ext.LaszloProtocolSniffingFilter</filter-class>
-	</filter>
- 
-	<filter-mapping>
-		<filter-name>LaszloProtocolSniffingFilter</filter-name>
-		<url-pattern>*.lzx</url-pattern>
-	</filter-mapping>
- -->
- 
 	<filter>
         <filter-name>s2filter</filter-name>
         <filter-class>org.seasar.framework.container.filter.S2ContainerFilter</filter-class>
     </filter>
-    
-    <filter>
-	  <filter-name>S2LaszloGzipFilter</filter-name>
-	  <filter-class>org.seasar.laszlo.filter.S2LaszloGzipFilter</filter-class>
-	</filter>
- 
-    <filter>
-	  <filter-name>RequestLogFilter</filter-name>
-	  <filter-class>org.seasar.laszlo.examples.filter.RequestLogFilter</filter-class>
-	</filter>
-	
-	<filter-mapping>
-		<filter-name>S2LaszloGzipFilter</filter-name>
-		<url-pattern>*.lzx</url-pattern>
-	</filter-mapping>
 	
     <filter-mapping>
         <filter-name>s2filter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
- 
-     <filter-mapping>
-        <filter-name>RequestLogFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
  
@@ -66,14 +33,7 @@
         <servlet-name>AuthenticationServlet</servlet-name>
         <servlet-class>AuthenticationServlet</servlet-class>
     </servlet>
-<!--
-    <servlet>
-      <servlet-name>AxisServlet</servlet-name>
-      <servlet-class>
-          org.apache.axis.transport.http.AxisServlet
-      </servlet-class>
-    </servlet>
--->
+    
     <servlet>
 	    <servlet-name>s2servlet</servlet-name>
 	    <servlet-class>org.seasar.framework.container.servlet.S2ContainerServlet</servlet-class>
@@ -113,12 +73,7 @@
         <servlet-name>AuthenticationServlet</servlet-name>
         <url-pattern>/AuthenticationServlet</url-pattern>
     </servlet-mapping>
-<!-- 
-    <servlet-mapping>
-      <servlet-name>AxisServlet</servlet-name>
-      <url-pattern>*.jws</url-pattern>
-    </servlet-mapping>
--->
+    
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
         <welcome-file>index.html</welcome-file>
