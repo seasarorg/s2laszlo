@@ -28,7 +28,8 @@ import org.seasar.laszlo.S2LaszloExceptionHandler;
 import org.seasar.laszlo.S2LaszloInvoker;
 import org.seasar.laszlo.S2LaszloInvokerLogFormatter;
 import org.seasar.laszlo.S2LaszloNotAllowedException;
-import org.seasar.laszlo.filter.S2LaszloNeedGzipHolder;
+import org.seasar.laszlo.impl.S2LaszloExceptionHandlerImpl;
+import org.seasar.laszlo.impl.S2LaszloInvokerLogFormatterDefaultImpl;
 
 /**
  * 
@@ -68,10 +69,7 @@ public class S2LaszloInvokerImpl implements S2LaszloInvoker {
             if (s2laszloDef == null) {
                 throw new S2LaszloNotAllowedException("component not allowed");
             }
-            
-            // gzip
-            S2LaszloNeedGzipHolder.setNeedGzip();
-            
+
             BeanDesc beanDesc = BeanDescFactory.getBeanDesc(component
                     .getClass());
             Object obj = beanDesc.invoke(component, methodName,
