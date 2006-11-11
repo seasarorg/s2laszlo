@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<canvas>
+
+
+	<dataset name="fullUserList" request="true"
+		src="http://localhost:8080/s2laszlo-example/s2laszlo/userListService/getUserList">
+	</dataset>
+
+	<dataset name="ageMax20" request="true"
+		src="http://localhost:8080/s2laszlo-example/s2laszlo/userListService/getUserList?ageMax=20">
+	</dataset>
+
+	<dataset name="ageMin10ageMax20" request="true"
+		src="http://localhost:8080/s2laszlo-example/s2laszlo/userListService/getUserList?ageMin=10&amp;ageMax=20">
+	</dataset>
+
+	<simplelayout spacing="10" />
+
+	<text>datasetを利用したサンプル</text>
+
+	<grid datapath="fullUserList:/list">
+		<gridtext datapath="userName/text()">user name</gridtext>
+		<gridtext datapath="age/text()">age</gridtext>
+		<gridtext datapath="group/groupName/text()">
+			group name
+		</gridtext>
+	</grid>
+
+	<grid datapath="ageMax20:/list">
+		<gridtext datapath="userName/text()">user name</gridtext>
+		<gridtext datapath="age/text()">age</gridtext>
+		<gridtext datapath="group/groupName/text()">
+			group name
+		</gridtext>
+	</grid>
+
+	<grid datapath="ageMin10ageMax20:/list">
+		<gridtext datapath="userName/text()">user name</gridtext>
+		<gridtext datapath="age/text()">age</gridtext>
+		<gridtext datapath="group/groupName/text()">
+			group name
+		</gridtext>
+	</grid>
+
+</canvas>

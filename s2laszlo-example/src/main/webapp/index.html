@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>S2Laszlo Examples</title>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<script>
+<!--
+function execute(url){
+	url = url + "?lzr=swf8";
+	window.open(url, "_blank", "directories=yes,location=yes,menubar=yes,resizable=yes,scrollbars=yes,status=yes,titlebar=yes,toolbar=yes");
+}
+function openSource(url){
+	url = url + "?lzr=swf8&lzt=source";
+	window.open(url, "_blank", "directories=yes,location=yes,menubar=yes,resizable=yes,scrollbars=yes,status=yes,titlebar=yes,toolbar=yes");
+}
+// -->
+</script>
+</head>
+
+
+<body>
+<h2>S2Laszlo Examples 一覧</h2>
+<p>ソース表示時は、日本語部分が文字化けを起こします。<br>
+気になる場合は、直接lzxファイルを参照してください。</p>
+<table border="1">
+	<tr>
+		<td>No.</td>
+		<td>名称</td>
+		<td>目的</td>
+		<td>実行</td>
+		<td>ソース</td>
+	</tr>
+	<tr>
+		<td>1</td>
+		<td>dataset</td>
+		<td>datasetによるデータ取得を行います。</td>
+		<td><input type="button" value="実行" onclick="execute('./basic/dataset/DatasetExample.lzx');" /></td>
+		<td><input type="button" value="LZXソース" onclick="openSource('./basic/dataset/DatasetExample.lzx');" /></td>
+	</tr>
+	<tr>
+		<td>2</td>
+		<td>JavaRPC</td>
+		<td>JavaRPCによるデータ取得を行います。</td>
+		<td><input type="button" value="実行" onclick="execute('./basic/javarpc/Calculator.lzx');" /></td>
+		<td><input type="button" value="LZXソース" onclick="openSource('./basic/javarpc/Calculator.lzx');" /></td>
+	</tr>
+	
+</table>
+
+</body>
+
+

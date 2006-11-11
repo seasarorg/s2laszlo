@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<canvas debug="true">
+    <include href="../../s2laszlo/library.lzx"/>
+    <simplelayout axis="y"/>
+    <view>
+        <simplelayout axis="y" />
+        <text>JavaRPCを使った演算(1:intの演算)</text>
+        <view name="calc">
+            <simplelayout axis="x" />
+            <edittext name="a"/>
+            <text>+</text>
+            <edittext name="b"/>
+            <text>=</text>
+            <edittext name="result"/>
+            <button>実行
+                <method event="onclick">
+                    Debug.write("ボタンが押されました");
+                    var t = { component: 'calculator', method: 'addInt' }
+                    var r = { ref: parent.result, attribute:'text', invokeObject:this, invokeMethod:'success' };
+                    var e = {invokeObject:this, invokeMethod:'error'};
+                    var s2l = new s2laszlo( t, r, e );
+                    var param = { 'a':parent.a.text, 'b':parent.b.text };
+                    s2l.invoke(param);
+                </method>
+                <method name="success" args="str">
+                    Debug.write('取得した値は"' + str + '"です。');
+                </method>
+                <method name="error" args="errorObject">
+                    Debug.write('エラーが発生しました。');
+                    Debug.write('Exceptionクラス:' + errorObject['exception'] );
+                    Debug.write('Exceptionメッセージ:' + errorObject['exceptionMessage']);
+                </method>
+            </button>
+        </view>
+    </view>
+        <view>
+        <simplelayout axis="y" />
+        <text>JavaRPCを使った演算(1:floatの演算)</text>
+        <view name="calc">
+            <simplelayout axis="x" />
+            <edittext name="c"/>
+            <text>+</text>
+            <edittext name="d"/>
+            <text>=</text>
+            <edittext name="result"/>
+            <button>実行
+                <method event="onclick">
+                    Debug.write("ボタンが押されました");
+                    var t = { component: 'calculator', method: 'addFloat' }
+                    var r = { ref: parent.result, attribute:'text', invokeObject:this, invokeMethod:'success' };
+                    var e = {invokeObject:this, invokeMethod:'error'};
+                    var s2l = new s2laszlo( t, r, e );
+                    var param = { 'c':parent.c.text, 'd':parent.d.text };
+                    s2l.invoke(param);
+                </method>
+                <method name="success" args="str">
+                    Debug.write('取得した値は"' + str + '"です。');
+                </method>
+                <method name="error" args="errorObject">
+                    Debug.write('エラーが発生しました。');
+                    Debug.write('Exceptionクラス:' + errorObject['exception'] );
+                    Debug.write('Exceptionメッセージ:' + errorObject['exceptionMessage']);
+                </method>
+            </button>
+            <text>※ 小数点以下を入れた場合、Float.floatToIntBits()を利用しているため、予期しない値が表示されます。doubleで行えば問題ありません。</text>
+        </view>
+    </view>
+</canvas>
