@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<library>
+	<include href="s2laszloconfig.lzx" />
+
+	<security>
+		<allow>
+            <pattern>^org.seasar.laszlo.javarpc.JavaRPCStaticAdapter</pattern>
+        </allow>
+    </security>
+
+    <s2laszloconfig name="__s2laszloconifg"/>
+
+    <javarpc name="__s2laszloadapter"
+             scope="none"
+             classname="org.seasar.laszlo.javarpc.JavaRPCStaticAdapter"
+             objectreturntype="javabean"
+             initstage="immediate ">
+             
+        <attribute name="loaded" value="false" type="boolean"/>
+        <method event="onload">
+            this.loaded = true;
+        </method>
+    </javarpc>
+    
+    <script>
+        LzLoader.prototype.timeout = __s2laszloconifg.s2laszlo_timeout_msec;
+        
+        function s2laszloError( exception, exceptionMessage ) {
+            this.exception = exception;
+            this.exceptionMessage;
+        }
+        
+        function s2laszlo( target, result, error, cancel ) {
+        <![CDATA[
+            this.service = new remotecall( this, {funcname:'service', remotecontext: __s2laszloadapter} );
+            this._alreadyInvoked = false;
+            this._errorAction = false;
+            this._ref = null;
+            this._cancel = false;
+            
+            if( target != null ) {
+                this._component = this._convUndefToNull( target['component'] );
+                this._method = this._convUndefToNull( target['method'] );
+            }
+            
+            if( result != null ) {
+                this._ref = this._convUndefToNull( result['ref'] );
+                this._attribute = this._convUndefToNull( result['attribute'] );
+                this._resultInvokeObject = this._convUndefToNull( result['invokeObject'] );
+                this._resultInvokeMethod = this._convUndefToNull( result['invokeMethod'] );
+            }
+            
+            if( error != null ) {
+                this._errorInvokeObject = this._convUndefToNull( error['invokeObject'] );
+                this._errorInvokeMethod = this._convUndefToNull( error['invokeMethod'] );
+                this._errorAction = true;
+            }
+            
+            if( cancel != null ) {
+            	var cancelEventObj = this._convUndefToNull( cancel['eventHolder'] );
+            	var cancelEventName = this._convUndefToNull( cancel['eventName'] );
+            	if( cancelEventObj != null && cancelEventName != null ) {
+            		this._cancelDelegate = new LzDelegate(this, '_oncancel' );
+            		this._cancelDelegate.register(cancelEventObj, cancelEventName);
+            	}
+            }
+        ]]>
+        }
+        
+        s2laszlo.prototype._javarpconerror = function( error ) {
+            this._javarpcOnErrorDelegate.unregisterAll();
+            if( __s2laszloconifg.s2laszlo_debug ) {
+                Debug.write("[s2laszlo] JavaRPC Error:" + error);
+            }
+            var errorDelegate = new LzDelegate(this._errorInvokeObject, this._errorInvokeMethod );
+            errorDelegate.execute("JavaRPC Error:" + error);
+        }
+        
+        s2laszlo.prototype._error = function( errorInfo ) {
+        <![CDATA[
+            if( this._errorAction ) {
+                if( __s2laszloconifg.s2laszlo_debug ) {
+                    Debug.write("[s2laszlo] Server Exception:" + errorInfo['exception'] + ":" + errorInfo['exceptionMessage']);
+                }
+                var errorDelegate = new LzDelegate(this._errorInvokeObject, this._errorInvokeMethod );
+                errorDelegate.execute(errorInfo);
+                // this._errorInvokeMethod(errorInfo);
+            }
+        ]]>
+        }
+        
+        s2laszlo.prototype._ondata = function( remoteObject ) {
+        <![CDATA[
+            this._javarpcOnErrorDelegate.unregisterAll();
+            
+            if( this._cancel ) {
+            	return;
+            }
+            
+            var success = remoteObject['success'];
+            if( !success ){
+                var laszloError = new s2laszloError();
+                laszloError.exception = remoteObject['exception'];
+                laszloError.exceptionMessage = remoteObject['exceptionMessage'];
+                this._error(laszloError);
+                return;
+            }
+            
+            var obj = remoteObject['object'];
+
+            if( this._ref != null && this._attribute != null ) {
+                this._ref.setAttribute(this._attribute, obj );
+            }
+            
+            if( this._resultInvokeObject != null && this._resultInvokeMethod != null ) {
+                var resultDelegate = new LzDelegate(this._resultInvokeObject, this._resultInvokeMethod );
+                resultDelegate.execute(obj);
+            }
+            
+        ]]>
+        }
+        
+        s2laszlo.prototype._oncancel = function( ) {
+        	this._cancel = true;
+        	this._cancelDelegate.unregisterAll();
+        }
+
+        s2laszlo.prototype._invoke = function( ) {
+        <![CDATA[
+            var ondataDelegate = new LzDelegate(this, '_ondata');
+            ondataDelegate.register( this.service, 'ondata' );
+            
+            this._javarpcOnErrorDelegate = new LzDelegate( this, '_javarpconerror');
+            this._javarpcOnErrorDelegate.register(__s2laszloadapter, 'onerror');
+            
+            
+            if( !this._checkRequest() ) {
+                return;
+            }
+            
+            var params = null;
+            if( this._argParam == null ){
+                params = new Array(this._component, this._method);
+            } else {
+                params = new Array(this._component, this._method, this._argParam);
+            }
+            
+            
+            this.service.invoke(params, null);
+        ]]>
+        }
+        
+        s2laszlo.prototype._retryInvoke = function( ) {
+            if( !__s2laszloadapter.loaded ) {
+                var invokeDelegate = new LzDelegate( this, "_retryInvoke");
+                LzTimer.addTimer( invokeDelegate, __s2laszloconifg.load_retry_time );
+                return;
+            }
+            this._invoke();
+        }
+        
+        
+        s2laszlo.prototype.invoke = function( ) {<![CDATA[
+            
+            if( this._alreadyInvoked ) {
+                Debug.write("s2laszlo already invoked");
+                return;
+            } else {
+                this._alreadyInvoked = true;
+            }
+            
+            /*
+            if( arguments != null && arguments.length != 0 ) {
+                this._argList = new Array();
+                for( var i = 0; i < arguments.length; i++ ) {
+                    var argObj = arguments[i];
+                    // データ送信時にHTMLエスケープ記号は変換する
+                    argObj = this._escapeObject(argObj);
+                    this._argList[i] = argObj;
+                }
+            } else {
+                this._argParam = null;
+            }
+            */
+            
+            if( arguments != null && arguments.length == 1 ) {
+                this._argParam = this._escapeObject(arguments[0]);
+            } else {
+                this._argParam = null;
+            }
+            
+            
+            if( !__s2laszloadapter.loaded ) {
+                this._retryInvoke();
+                return;
+            }
+            this._invoke();
+        ]]>
+        }
+        
+        s2laszlo.prototype._checkRequest = function( ) {
+            var checkFlag = true;
+            
+            if( this._component == null ) {
+                this.onerror.sendEvent( "component undefined.");
+                checkFlag = false;
+            }
+            if( this._method == null ) {
+                this.onerror.sendEvent( "method undefined.");
+                checkFlag = false;
+            }
+            return checkFlag;
+        }
+        
+        /**
+         * undefをnullへ変換
+         */
+        s2laszlo.prototype._convUndefToNull = function (obj) {
+            if( obj == undefined ) {
+                return null;
+            }
+            return obj;
+        }
+        
+        /**
+         * Objectの中のStringをエスケープする
+         */
+        s2laszlo.prototype._escapeObject = function (obj) {<![CDATA[
+            if( (typeof obj) == 'string' ) {
+                return this._escape(obj);
+                /*
+            } else if ( obj instanceof Array ) {
+                var replaced = new Array();
+                for( var i = 0; i < obj.length; i++ ) {
+                    replaced[i] = this._escapeObject(obj[i]);
+                }
+                return replaced;
+                */
+            } else if ( obj instanceof Object ) {
+                var replaced = new Object();
+                for(var i in obj){
+                    replaced[i] = this._escapeObject(obj[i]);
+                }
+                return replaced;
+            }
+            return obj;
+        ]]>
+        }
+        
+        /**
+         * 送信する文字列にHTMLエスケープ文字が含まれていた場合変換する
+         */
+        s2laszlo.prototype._escape= function (str) {<![CDATA[
+            var escapedStr = "";
+            for( var i = 0; i < str.length; i++ ) {
+                var c = str.charAt(i);
+                if( c == '<' ) {
+                    c = '&lt;';
+                } else if ( c == '>' ) {
+                    c = '&gt;';
+                } else if ( c == '&' ) {
+                    c = '&amp;';
+                }
+                escapedStr = escapedStr + c;
+            }
+            return escapedStr;
+        ]]>
+        }
+        
+    </script>
+    
+</library>
+
+<!-- * X_LZ_COPYRIGHT_BEGIN ***************************************************
+ * Copyright 2005-2006 the Seasar Foundation and the Others.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, 
+ * either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+* X_LZ_COPYRIGHT_END ****************************************************** -->
