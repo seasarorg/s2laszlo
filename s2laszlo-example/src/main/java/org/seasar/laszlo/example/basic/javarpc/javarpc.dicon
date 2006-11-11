@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.3//EN"
+	"http://www.seasar.org/dtd/components23.dtd">
+	
+<components>
+	<component name="calculator"
+		class="org.seasar.laszlo.example.basic.javarpc.Calculator"
+		instance="request" >
+		<meta name="s2laszlo"/>
+	</component>
+</components>
