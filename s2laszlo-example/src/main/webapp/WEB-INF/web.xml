@@ -1,0 +1,63 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+	<display-name>S2Laszlo Example</display-name>
+
+	<filter>
+		<filter-name>s2filter</filter-name>
+		<filter-class>
+			org.seasar.framework.container.filter.S2ContainerFilter
+		</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>s2filter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<servlet>
+		<servlet-name>LPS</servlet-name>
+		<servlet-class>org.openlaszlo.servlets.LZServlet</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>s2servlet</servlet-name>
+		<servlet-class>
+			org.seasar.framework.container.servlet.S2ContainerServlet
+		</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet>
+		<servlet-name>s2laszloServlet</servlet-name>
+		<servlet-class>
+			org.seasar.laszlo.servlet.S2LaszloServlet
+		</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>LPS</servlet-name>
+		<url-pattern>*.lzx</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>LPS</servlet-name>
+		<url-pattern>*.lzo</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>s2servlet</servlet-name>
+		<url-pattern>/s2servlet</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>s2laszloServlet</servlet-name>
+		<url-pattern>/s2laszlo/*</url-pattern>
+	</servlet-mapping>
+
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+</web-app>
