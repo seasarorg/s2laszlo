@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.3//EN"
+	"http://www.seasar.org/dtd/components23.dtd">
+<components namespace="s2laszlo" >
+
+	<component class="org.seasar.laszlo.invoker.impl.ComponentInvokerImpl">
+		<property name="metaString">"s2laszlo"</property>
+	</component>
+	<component class="org.seasar.laszlo.invoker.impl.ComponentAssemblerImpl"/>
+	<component class="org.seasar.laszlo.servlet.impl.XStreamResponseHandlerImpl">
+		<property name="encoding">"UTF-8"</property>
+		<property name="xstream">new com.thoughtworks.xstream.XStream(new com.thoughtworks.xstream.io.xml.DomDriver())</property>
+	</component>
+	<component name="s2laszloServletHandler" 
+		class="org.seasar.laszlo.servlet.impl.S2LaszloServletHandlerImpl"/>
+	
+	<component name="s2laszloJavaRPCInvoker" class="org.seasar.laszlo.javarpc.impl.JavaRPCAdapterImpl"></component>
+	
+</components>
