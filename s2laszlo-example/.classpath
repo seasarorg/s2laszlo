@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" output="src/main/webapp/WEB-INF/classes" path="src/main/java"/>
+	<classpathentry kind="src" output="src/main/webapp/WEB-INF/classes" path="src/main/resources"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/s2-laszlo-0.1.0.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/xstream-1.2.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/s2-framework-2.3.13.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/lps-3.3.3.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

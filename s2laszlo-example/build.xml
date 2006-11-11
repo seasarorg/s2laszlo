@@ -1,0 +1,37 @@
+<project name="s2laszlo" default="dist" basedir="." xmlns:artifact="urn:maven-artifact-ant">
+
+	<!-- Please run "mvn clean deploy". -->
+
+	<target name="initTaskDefs">
+		<typedef resource="org/apache/maven/artifact/ant/antlib.xml" uri="urn:maven-artifact-ant">
+			<classpath>
+				<pathelement path="${mvn.dependency.classpath}" />
+			</classpath>
+		</typedef>
+		
+		<artifact:pom file="pom.xml" id="maven.project" />
+
+		<property name="ver" value="0.1.0" />
+
+	</target>
+
+	<target name="dist" depends="initTaskDefs">
+		<mkdir dir="target" />
+		
+		<zip zipfile="target/s2laszlo-example-${ver}.zip">
+			
+			<zipfileset dir=".">
+				<exclude name=".settings/**"/>
+				<exclude name="target/**"/>
+				<exclude name="work/**"/>
+				<exclude name="bin/**"/>
+			</zipfileset>
+			
+			<zipfileset dir="target">
+				<include name="s2laszlo-example.war"/>
+			</zipfileset>
+			
+		</zip>
+	</target>
+
+</project>
