@@ -1,23 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="s2-laszlo/src/main/java"/>
-	<classpathentry kind="src" path="s2-laszlo/src/test/java"/>
-	<classpathentry output="s2-laszlo-examples/src/main/webapp/WEB-INF/classes" kind="src" path="s2-laszlo-examples/src/main/java"/>
-	<classpathentry output="s2-laszlo-examples/src/main/webapp/WEB-INF/classes" kind="src" path="s2-laszlo-examples/src/main/resources"/>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="src" path="src/main/resources"/>
+	<classpathentry kind="src" path="src/test/java"/>
+	<classpathentry kind="src" path="src/test/resources"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="lib/ant-junit-1.6.jar"/>
-	<classpathentry kind="lib" path="lib/aopalliance-1.0.jar"/>
-	<classpathentry kind="lib" path="lib/commons-logging-1.0.4.jar"/>
-	<classpathentry kind="lib" path="lib/geronimo-spec-j2ee-1.4-rc4.jar"/>
-	<classpathentry kind="lib" path="lib/javassist-3.0.jar"/>
+	<classpathentry kind="lib" path="lib/s2-framework-2.3.13.jar"/>
+	<classpathentry kind="lib" path="lib/s2-extension-2.3.13.jar"/>
+	<classpathentry kind="lib" path="lib/s2-tiger-2.3.9.jar"/>
+	<classpathentry kind="lib" path="lib/xstream-1.2.jar"/>
 	<classpathentry kind="lib" path="lib/junit-3.8.1.jar"/>
-	<classpathentry kind="lib" path="lib/log4j-1.2.8.jar"/>
+	<classpathentry kind="lib" path="lib/geronimo-j2ee_1.4_spec-1.0.jar"/>
 	<classpathentry kind="lib" path="lib/ognl-2.6.5.jar"/>
-	<classpathentry kind="lib" path="lib/poi-2.5.1-final-20040804.jar"/>
-	<classpathentry kind="lib" path="lib/s2-extension-2.3.4.jar"/>
-	<classpathentry kind="lib" path="lib/s2-framework-2.3.4.jar"/>
-	<classpathentry kind="var" path="TOMCAT_HOME/common/lib/servlet-api.jar"/>
-	<classpathentry kind="var" path="TOMCAT_HOME/common/lib/jasper-runtime.jar"/>
-	<classpathentry kind="var" path="TOMCAT_HOME/common/lib/jsp-api.jar"/>
+	<classpathentry kind="lib" path="lib/commons-logging-1.0.4.jar"/>
+	<classpathentry kind="lib" path="lib/javassist-3.0.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-1.2.8.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.3//EN"
+	"http://www.seasar.org/dtd/components23.dtd">
+<components>
+
+	<component name="hogehoge" class="org.seasar.laszlo.invoker.impl.HogeHoge" instance="prototype">
+        <meta name="s2laszlo"/>
+    </component>
+
+	<component name="hogehogeNoMeta" class="org.seasar.laszlo.invoker.impl.HogeHoge" instance="prototype">
+    </component>
+
+</components>
